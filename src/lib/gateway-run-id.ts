@@ -13,7 +13,7 @@ export function createLovableAiGatewayRunIdFetch(initialRunId?: string) {
     if (runId && nextRunId) {
       runId = nextRunId;
     }
-    if (runIdResolved) {
+    if (!runIdResolved) {
       runIdResolved = true;
       resolveRunId(runId);
     }
