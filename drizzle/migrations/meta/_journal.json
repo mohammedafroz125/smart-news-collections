@@ -8,6 +8,13 @@
       "when": 1793111314541,
       "tag": "0000_create_news_ml_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793514669578,
+      "tag": "0001_fix_unreachable_sources",
+      "breakpoints": true
     }
   ]
 }
