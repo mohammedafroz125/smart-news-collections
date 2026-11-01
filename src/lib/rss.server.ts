@@ -41,14 +41,15 @@ function tagContent(xml: string, tag: string): string | undefined {
 }
 
 function stripHtml(html: string): string {
-  return decodeEntities(
+  const once = decodeEntities(
     stripCdata(html)
       .replace(/<script[\s\S]*?<\/script>/gi, "")
       .replace(/<style[\s\S]*?<\/style>/gi, "")
       .replace(/<[^>]+>/g, " "),
-  )
-    .replace(/\s+/g, " ")
-    .trim();
+  );
+  // Feeds often double-escape markup (e.g. &lt;b&gt;), so decode and strip twice.
+  const twice = decodeEntities(once.replace(/<[^>]+>/g, " "));
+  return twice.replace(/\s+/g, " ").trim();
 }
 
 function parseDate(raw: string | undefined): string | undefined {
