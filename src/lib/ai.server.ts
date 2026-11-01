@@ -66,7 +66,7 @@ function createProvider() {
 function extractJsonArray(text: string): unknown {
   let cleaned = text.trim();
   const fence = cleaned.match(/```(?:json)?\s*([\s\S]*?)```/i);
-  if (fence) cleaned = fence[1].trim();
+  if (fence) cleaned = (fence[1] ?? "").trim();
   const start = cleaned.indexOf("[");
   const end = cleaned.lastIndexOf("]");
   if (start === -1 || end === -1 || end < start) throw new Error("No JSON array in model output");

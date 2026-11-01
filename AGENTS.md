@@ -8,3 +8,25 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+# Project — Domestic News Collections using ML
+
+MCA major project (Mohammed Afroz, Hall Ticket 1314-24-862-003; guide Ms. Rana
+Tilath, MESCO Institute of Management and Computer Sciences, Hyderabad).
+
+## Architecture rules
+- News collection is server-side only: RSS fetch/parse lives in `src/lib/rss.server.ts`,
+  the pipeline in `src/lib/collect.server.ts`; never fetch feeds from the browser.
+- ML calls go through the Lovable AI gateway in `src/lib/ai.server.ts` using
+  `google/gemini-3.1-flash-lite` (high-volume extraction task; cheap + fast enough for
+  per-article scheduled runs). Create the provider inside each handler, never at module scope.
+- Articles are stored unclassified (`ml_processed = false`); ML results are only written
+  by `processPendingArticles`. Never ship unprocessed articles as "classified".
+- Public reads use the publishable client (`src/lib/supabase-public.server.ts`); writes use
+  `supabaseAdmin` loaded inside handlers, after an admin role check via `has_role`.
+- Scheduled jobs are TanStack server routes under `/api/public/jobs/*` guarded by
+  `authenticateCronRequest`; managed HTTP schedules point at them (collect 3x daily,
+  ML processing every 15 min). Keep each scheduled run fast (parallel feed fetch,
+  small ML batches) — the scheduler times out in seconds.
+- Feed item age limit for collection is 4 days, max 15 items per feed per run.
+- The first account created becomes the admin (trigger on auth.users). No profiles table.

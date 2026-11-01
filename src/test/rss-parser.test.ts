@@ -26,28 +26,31 @@ describe("parseFeed (RSS collection stage)", () => {
   it("parses items with CDATA titles and decodes entities", () => {
     const items = parseFeed(SAMPLE_XML);
     expect(items).toHaveLength(2);
-    expect(items[0].title).toBe("Monsoon rains batter Hyderabad, more showers 'likely'");
-    expect(items[0].link).toBe("https://example.com/monsoon-hyderabad");
+    const first = items[0]!;
+    expect(first.title).toBe("Monsoon rains batter Hyderabad, more showers 'likely'");
+    expect(first.link).toBe("https://example.com/monsoon-hyderabad");
   });
 
   it("strips HTML tags and decodes entities in excerpts", () => {
-    const items = parseFeed(SAMPLE_XML);
-    expect(items[0].excerpt).toBe(
+    const [first, second] = parseFeed(SAMPLE_XML);
+    expect(first!.excerpt).toBe(
       "Heavy rainfall disrupted traffic in the old city on Tuesday. Officials & volunteers responded.",
     );
-    expect(items[1].excerpt).toBe("India sealed the series in a dramatic super over in Ranchi. Full report inside.");
+    expect(second!.excerpt).toBe(
+      "India sealed the series in a dramatic super over in Ranchi. Full report inside.",
+    );
   });
 
   it("extracts images from media:content and enclosure tags", () => {
-    const items = parseFeed(SAMPLE_XML);
-    expect(items[0].imageUrl).toBe("https://images.example.com/monsoon.jpg");
-    expect(items[1].imageUrl).toBe("https://images.example.com/cricket.jpg");
+    const [first, second] = parseFeed(SAMPLE_XML);
+    expect(first!.imageUrl).toBe("https://images.example.com/monsoon.jpg");
+    expect(second!.imageUrl).toBe("https://images.example.com/cricket.jpg");
   });
 
   it("normalises publication dates to ISO timestamps", () => {
-    const items = parseFeed(SAMPLE_XML);
-    expect(items[0].publishedAt).toBe(new Date("Tue, 27 Oct 2026 08:30:00 +0530").toISOString());
-    expect(items[1].publishedAt).toBe(new Date("Tue, 27 Oct 2026 06:15:00 GMT").toISOString());
+    const [first, second] = parseFeed(SAMPLE_XML);
+    expect(first!.publishedAt).toBe(new Date("Tue, 27 Oct 2026 08:30:00 +0530").toISOString());
+    expect(second!.publishedAt).toBe(new Date("Tue, 27 Oct 2026 06:15:00 GMT").toISOString());
   });
 
   it("decodes standalone entity strings", () => {

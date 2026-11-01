@@ -52,6 +52,7 @@ function RelatedItem({ article }: { article: NewsArticleDTO }) {
 
 function ArticleDetail() {
   const { article, related } = Route.useLoaderData();
+  if (!article) throw notFound();
   const sentiment = sentimentStyle(article.sentiment);
   const scorePercent = article.sentimentScore === null ? 50 : Math.round(((article.sentimentScore + 1) / 2) * 100);
 

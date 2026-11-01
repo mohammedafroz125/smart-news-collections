@@ -22,14 +22,31 @@ function formatDistance(date: Date, base: Date, options: { addSuffix: boolean })
   return `${days} day${days === 1 ? "" : "s"}${suffix}`;
 }
 
-export const SENTIMENT_STYLES: Record<string, { label: string; dot: string; text: string; bg: string }> = {
-  positive: { label: "Positive", dot: "bg-sentiment-positive", text: "text-sentiment-positive", bg: "bg-sentiment-positive/10" },
-  negative: { label: "Negative", dot: "bg-sentiment-negative", text: "text-sentiment-negative", bg: "bg-sentiment-negative/10" },
-  neutral: { label: "Neutral", dot: "bg-sentiment-neutral", text: "text-sentiment-neutral", bg: "bg-sentiment-neutral/10" },
-};
+const SENTIMENT_STYLES = {
+  positive: {
+    label: "Positive",
+    dot: "bg-sentiment-positive",
+    text: "text-sentiment-positive",
+    bg: "bg-sentiment-positive/10",
+  },
+  negative: {
+    label: "Negative",
+    dot: "bg-sentiment-negative",
+    text: "text-sentiment-negative",
+    bg: "bg-sentiment-negative/10",
+  },
+  neutral: {
+    label: "Neutral",
+    dot: "bg-sentiment-neutral",
+    text: "text-sentiment-neutral",
+    bg: "bg-sentiment-neutral/10",
+  },
+} as const;
 
 export function sentimentStyle(sentiment: string) {
-  return SENTIMENT_STYLES[sentiment] ?? SENTIMENT_STYLES.neutral;
+  const key: keyof typeof SENTIMENT_STYLES =
+    sentiment === "positive" || sentiment === "negative" ? sentiment : "neutral";
+  return SENTIMENT_STYLES[key];
 }
 
 export function formatSentimentScore(score: number | null | undefined): string {

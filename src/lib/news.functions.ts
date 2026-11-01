@@ -231,7 +231,7 @@ export const processPending = createServerFn({ method: "POST" })
 
 export const addSource = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: { name: string; feedUrl: string; homepageUrl?: string }) =>
+  .inputValidator((data: { name: string; feedUrl: string; homepageUrl?: string | undefined }) =>
     z
       .object({
         name: z.string().min(2).max(120),
