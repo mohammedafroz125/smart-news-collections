@@ -2,8 +2,8 @@ export interface FeedItem {
   title: string;
   link: string;
   excerpt: string;
-  imageUrl?: string;
-  publishedAt?: string;
+  imageUrl: string | undefined;
+  publishedAt: string | undefined;
 }
 
 const NAMED_ENTITIES: Record<string, string> = {
@@ -59,21 +59,21 @@ function parseDate(raw: string | undefined): string | undefined {
 
 function findImage(entry: string, rawExcerpt: string): string | undefined {
   const media = entry.match(/<media:content[^>]*url="([^"]+)"/i);
-  if (media) return decodeEntities(media[1]);
+  if (media?.[1]) return decodeEntities(media[1]);
   const mediaThumb = entry.match(/<media:thumbnail[^>]*url="([^"]+)"/i);
-  if (mediaThumb) return decodeEntities(mediaThumb[1]);
+  if (mediaThumb?.[1]) return decodeEntities(mediaThumb[1]);
   const enclosure = entry.match(/<enclosure[^>]*url="([^"]+)"[^>]*type="image/i);
-  if (enclosure) return decodeEntities(enclosure[1]);
+  if (enclosure?.[1]) return decodeEntities(enclosure[1]);
   const itunes = entry.match(/<itunes:image[^>]*href="([^"]+)"/i);
-  if (itunes) return decodeEntities(itunes[1]);
+  if (itunes?.[1]) return decodeEntities(itunes[1]);
   const inline = rawExcerpt.match(/<img[^>]*src=["']([^"']+)["']/i);
-  if (inline) return decodeEntities(inline[1]);
+  if (inline?.[1]) return decodeEntities(inline[1]);
   return undefined;
 }
 
 function findLink(entry: string): string | undefined {
   const atomHref = entry.match(/<link[^>]*\bhref=["']([^"']+)["'][^>]*\brel=["']alternate/i);
-  if (atomHref) return decodeEntities(atomHref[1]);
+  if (atomHref?.[1]) return decodeEntities(atomHref[1]);
   const plainLink = tagContent(entry, "link");
   if (plainLink) {
     const url = stripCdata(plainLink).trim();
