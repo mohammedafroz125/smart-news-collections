@@ -92,7 +92,10 @@ function ArticleDetail() {
           <img
             src={article.imageUrl}
             alt=""
-            className="mt-6 aspect-[16/9] w-full rounded-lg border border-border object-cover"
+            className="mt-6 aspect-[16/9] w-full rounded-lg border border-border bg-secondary object-cover"
+            onError={(event) => {
+              event.currentTarget.style.display = "none";
+            }}
           />
         )}
 
