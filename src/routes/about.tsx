@@ -135,6 +135,12 @@ function AboutPage() {
             <dt className="kicker text-muted-foreground">Academic year</dt>
             <dd className="mt-1 font-medium text-foreground">2024–2026</dd>
           </div>
+          <div className="sm:col-span-2">
+            <dt className="kicker text-muted-foreground">Industry training partner</dt>
+            <dd className="mt-1 font-medium text-foreground">
+              Pantech e Learning Pvt. Ltd. (Major project — PEHYD0005/MAJOR PROJECT/DS/2025-2026)
+            </dd>
+          </div>
         </dl>
       </section>
     </div>
