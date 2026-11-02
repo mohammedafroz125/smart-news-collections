@@ -52,6 +52,9 @@ function ArticleCard({ article, index }: { article: NewsArticleDTO; index: numbe
               alt=""
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
               loading="lazy"
+              onError={(event) => {
+                event.currentTarget.style.display = "none";
+              }}
             />
           ) : (
             <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary/15 to-accent/25">
@@ -197,6 +200,7 @@ function Index() {
             placeholder="Search headlines or keywords…"
             className="sm:max-w-xs"
             aria-label="Search headlines"
+            suppressHydrationWarning
           />
           <div className="flex flex-wrap gap-1.5">
             <button
