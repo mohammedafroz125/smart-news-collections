@@ -101,7 +101,8 @@ export const getNewsFeed = createServerFn({ method: "GET" }).handler(async (): P
 }> => {
   try {
     const supabase = createPublicClient();
-    const [{ data: articles }, { count: totalArticles }, { count: activeSources }] = await Promise.all([
+    const [{ data: articles }, { count: totalArticles }, { count: activeSources }, { count: processedTotal }] =
+      await Promise.all([
       supabase
         .from("articles")
         .select(articleSelect)
@@ -109,12 +110,13 @@ export const getNewsFeed = createServerFn({ method: "GET" }).handler(async (): P
         .limit(150),
       supabase.from("articles").select("id", { count: "exact", head: true }),
       supabase.from("news_sources").select("id", { count: "exact", head: true }).eq("is_active", true),
+      supabase.from("articles").select("id", { count: "exact", head: true }).eq("ml_processed", true),
     ]);
 
     const rows = ((articles ?? []) as unknown as RawArticle[]).map(toDto);
     return {
       articles: rows,
-      stats: computeStats(rows, totalArticles ?? rows.length, activeSources ?? 0),
+      stats: computeStats(rows, totalArticles ?? rows.length, activeSources ?? 0, processedTotal ?? 0),
     };
   } catch (error) {
     console.error("getNewsFeed failed:", error);
