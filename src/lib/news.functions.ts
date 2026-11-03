@@ -71,7 +71,7 @@ function toDto(row: RawArticle): NewsArticleDTO {
   };
 }
 
-function computeStats(rows: NewsArticleDTO[], totalArticles: number, activeSources: number): NewsStats {
+function computeStats(rows: NewsArticleDTO[], totalArticles: number, activeSources: number, processedTotal: number): NewsStats {
   const categories = new Map<string, number>();
   const sentiments = new Map<string, number>();
   let lastCollectedAt: string | null = null;
