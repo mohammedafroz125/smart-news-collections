@@ -23,5 +23,6 @@ notebook pages in the PDF belong to a different project and were ignored.
       PROJECT/DS/2025-2026); dashboard ML-processed stat counts the whole database
 
 ## Open
-- [ ] Publish the app — scheduled jobs can only reach the stable published URL.
-      After publish, verify the first scheduled collection + ML pass runs.
+- [ ] Verify the first scheduled collection + ML pass on the published URL
+      (collect-news 3x daily + process-news every 15 min are active and pointed
+      at the stable routes; next IST evening run is 17:30).
