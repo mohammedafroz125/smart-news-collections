@@ -84,7 +84,7 @@ function computeStats(rows: NewsArticleDTO[], totalArticles: number, activeSourc
 
   return {
     totalArticles,
-    processedArticles: rows.filter((row) => row.mlProcessed).length,
+    processedArticles: processedTotal,
     activeSources,
     categories: [...categories.entries()]
       .map(([name, count]) => ({ name, count }))
