@@ -1,4 +1,9 @@
-import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  useNavigate,
+  useRouter,
+} from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -41,7 +46,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/_authenticated/_admin/admin")({
   head: () => ({
     meta: [
       { title: "Newsroom Admin — Domestic News Collections" },
@@ -221,6 +226,9 @@ function AdminPage() {
           <Button variant="outline" onClick={handleProcess} disabled={processing}>
             {processing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
             {processing ? "Processing…" : "Run ML on pending"}
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/settings">Settings</Link>
           </Button>
           <Button variant="ghost" onClick={handleSignOut}>
             Sign out

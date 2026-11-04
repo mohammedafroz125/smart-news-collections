@@ -14,8 +14,8 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ArticleArticleIdRouteImport } from './routes/article/$articleId'
+import { Route as AuthenticatedAdminAdminRouteImport } from './routes/_authenticated/_admin/admin'
 import { Route as ApiPublicJobsCollectNewsRouteImport } from './routes/api/public/jobs/collect-news'
 import { Route as ApiPublicJobsProcessNewsRouteImport } from './routes/api/public/jobs/process-news'
 
@@ -43,15 +43,15 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const ArticleArticleIdRoute = ArticleArticleIdRouteImport.update({
   id: '/article/$articleId',
   path: '/article/$articleId',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminAdminRoute = AuthenticatedAdminAdminRouteImport.update({
+  id: '/_admin/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiPublicJobsCollectNewsRoute =
   ApiPublicJobsCollectNewsRouteImport.update({
@@ -71,8 +71,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/article/$articleId': typeof ArticleArticleIdRoute
+  '/admin': typeof AuthenticatedAdminAdminRoute
   '/api/public/jobs/collect-news': typeof ApiPublicJobsCollectNewsRoute
   '/api/public/jobs/process-news': typeof ApiPublicJobsProcessNewsRoute
 }
@@ -81,8 +81,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/article/$articleId': typeof ArticleArticleIdRoute
+  '/admin': typeof AuthenticatedAdminAdminRoute
   '/api/public/jobs/collect-news': typeof ApiPublicJobsCollectNewsRoute
   '/api/public/jobs/process-news': typeof ApiPublicJobsProcessNewsRoute
 }
@@ -93,8 +93,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/article/$articleId': typeof ArticleArticleIdRoute
+  '/_authenticated/_admin/admin': typeof AuthenticatedAdminAdminRoute
   '/api/public/jobs/collect-news': typeof ApiPublicJobsCollectNewsRoute
   '/api/public/jobs/process-news': typeof ApiPublicJobsProcessNewsRoute
 }
@@ -105,8 +105,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/reset-password'
-    | '/admin'
     | '/article/$articleId'
+    | '/admin'
     | '/api/public/jobs/collect-news'
     | '/api/public/jobs/process-news'
   fileRoutesByTo: FileRoutesByTo
@@ -115,8 +115,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/reset-password'
-    | '/admin'
     | '/article/$articleId'
+    | '/admin'
     | '/api/public/jobs/collect-news'
     | '/api/public/jobs/process-news'
   id:
@@ -126,8 +126,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/reset-password'
-    | '/_authenticated/admin'
     | '/article/$articleId'
+    | '/_authenticated/_admin/admin'
     | '/api/public/jobs/collect-news'
     | '/api/public/jobs/process-news'
   fileRoutesById: FileRoutesById
@@ -180,19 +180,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/article/$articleId': {
       id: '/article/$articleId'
       path: '/article/$articleId'
       fullPath: '/article/$articleId'
       preLoaderRoute: typeof ArticleArticleIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_admin/admin': {
+      id: '/_authenticated/_admin/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/jobs/collect-news': {
       id: '/api/public/jobs/collect-news'
@@ -212,11 +212,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAdminAdminRoute: typeof AuthenticatedAdminAdminRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAdminAdminRoute: AuthenticatedAdminAdminRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
