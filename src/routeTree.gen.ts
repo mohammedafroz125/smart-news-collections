@@ -17,6 +17,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/_admin/route'
 import { Route as ArticleArticleIdRouteImport } from './routes/article/$articleId'
 import { Route as AuthenticatedAdminAdminRouteImport } from './routes/_authenticated/_admin/admin'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/_admin/settings'
 import { Route as ApiPublicJobsCollectNewsRouteImport } from './routes/api/public/jobs/collect-news'
 import { Route as ApiPublicJobsProcessNewsRouteImport } from './routes/api/public/jobs/process-news'
 
@@ -58,6 +59,12 @@ const AuthenticatedAdminAdminRoute = AuthenticatedAdminAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const ApiPublicJobsCollectNewsRoute =
   ApiPublicJobsCollectNewsRouteImport.update({
     id: '/api/public/jobs/collect-news',
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/article/$articleId': typeof ArticleArticleIdRoute
   '/admin': typeof AuthenticatedAdminAdminRoute
+  '/settings': typeof AuthenticatedAdminSettingsRoute
   '/api/public/jobs/collect-news': typeof ApiPublicJobsCollectNewsRoute
   '/api/public/jobs/process-news': typeof ApiPublicJobsProcessNewsRoute
 }
@@ -88,6 +96,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/article/$articleId': typeof ArticleArticleIdRoute
   '/admin': typeof AuthenticatedAdminAdminRoute
+  '/settings': typeof AuthenticatedAdminSettingsRoute
   '/api/public/jobs/collect-news': typeof ApiPublicJobsCollectNewsRoute
   '/api/public/jobs/process-news': typeof ApiPublicJobsProcessNewsRoute
 }
@@ -101,6 +110,7 @@ export interface FileRoutesById {
   '/_authenticated/_admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/article/$articleId': typeof ArticleArticleIdRoute
   '/_authenticated/_admin/admin': typeof AuthenticatedAdminAdminRoute
+  '/_authenticated/_admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/api/public/jobs/collect-news': typeof ApiPublicJobsCollectNewsRoute
   '/api/public/jobs/process-news': typeof ApiPublicJobsProcessNewsRoute
 }
@@ -113,6 +123,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/article/$articleId'
     | '/admin'
+    | '/settings'
     | '/api/public/jobs/collect-news'
     | '/api/public/jobs/process-news'
   fileRoutesByTo: FileRoutesByTo
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/article/$articleId'
     | '/admin'
+    | '/settings'
     | '/api/public/jobs/collect-news'
     | '/api/public/jobs/process-news'
   id:
@@ -135,6 +147,7 @@ export interface FileRouteTypes {
     | '/_authenticated/_admin'
     | '/article/$articleId'
     | '/_authenticated/_admin/admin'
+    | '/_authenticated/_admin/settings'
     | '/api/public/jobs/collect-news'
     | '/api/public/jobs/process-news'
   fileRoutesById: FileRoutesById
@@ -208,6 +221,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAdminRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/_admin/settings': {
+      id: '/_authenticated/_admin/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/api/public/jobs/collect-news': {
       id: '/api/public/jobs/collect-news'
       path: '/api/public/jobs/collect-news'
@@ -227,11 +247,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAdminRoute: typeof AuthenticatedAdminAdminRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
 }
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
     AuthenticatedAdminAdminRoute: AuthenticatedAdminAdminRoute,
+    AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
   }
 
 const AuthenticatedAdminRouteRouteWithChildren =
