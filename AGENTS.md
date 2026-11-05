@@ -30,3 +30,9 @@ Tilath, MESCO Institute of Management and Computer Sciences, Hyderabad).
   small ML batches) — the scheduler times out in seconds.
 - Feed item age limit for collection is 4 days, max 15 items per feed per run.
 - The first account created becomes the admin (trigger on auth.users). No profiles table.
+- Admin dashboard is admin-only: routes under `src/routes/_authenticated/_admin/`
+  are gated by a `has_role` check in the pathless `_admin` layout `beforeLoad`.
+  Public sign-up is disabled in Cloud auth — the admin account is the only one.
+- Account email/password changes happen only through Admin Settings
+  (`/_admin/settings`): current-password re-auth, then email OTP/link verification
+  (recovery for password, magiclink for identity, email_change for the new address).
