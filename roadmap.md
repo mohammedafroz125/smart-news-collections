@@ -16,7 +16,11 @@ notebook pages in the PDF belong to a different project and were ignored.
 - [x] Public dashboard (/, /article/$id, /about) with filters, search, ticker
 - [x] Admin console (/admin): run collection, run ML on pending, source CRUD,
       run history, charts — verified signed-in as the student's account
-- [x] Auth: email/password + Google + Sign in with Lovable; first signup becomes admin
+- [x] Auth: email/password + Google; public sign-up disabled — admin account only
+- [x] Production admin auth: admin-only dashboard gate; Create Account and
+      "Continue with Lovable" removed from the sign-in page; Admin Settings
+      (/_admin/settings) to change admin email/password with current-password
+      re-auth + email OTP verification before any change applies
 - [x] Managed schedules: collect 3x daily (IST 04:00/10:00/17:30), ML every 15 min
 - [x] Tests 6/6 passing; typecheck clean; full browser pass with zero console errors
 - [x] PDF alignment: About page credits Pantech e Learning (PEHYD0005/MAJOR
