@@ -36,3 +36,6 @@ Tilath, MESCO Institute of Management and Computer Sciences, Hyderabad).
 - Account email/password changes happen only through Admin Settings
   (`/_admin/settings`): current-password re-auth, then email OTP/link verification
   (recovery for password, magiclink for identity, email_change for the new address).
+- The sole admin identity is `mohammedafroz125@gmail.com`; enforce it in both the
+  admin route gate and server-side admin operations. Login is email/password only;
+  password changes use recovery OTP verification, and passwords are never displayed.
