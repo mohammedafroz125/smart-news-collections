@@ -5,6 +5,7 @@ import { ExternalLink } from "lucide-react";
 import { getNewsFeed, type NewsArticleDTO } from "@/lib/news.functions";
 import { timeAgo, sentimentStyle, formatSentimentScore } from "@/lib/news-format";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -151,7 +152,7 @@ function Index() {
     });
   }, [data.articles, search, category]);
 
-  const shownCategories = data.stats.categories.slice(0, 9);
+  const shownCategories = data.stats.categories;
   const mlShare = data.stats.totalArticles
     ? Math.round((data.stats.processedArticles / data.stats.totalArticles) * 100)
     : 0;
@@ -203,28 +204,24 @@ function Index() {
             suppressHydrationWarning
           />
           <div className="flex flex-wrap gap-1.5">
-            <button
+            <Button
+              type="button"
+              size="sm"
+              variant={category === null ? "default" : "outline"}
               onClick={() => setCategory(null)}
-              className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
-                category === null
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-foreground/75 hover:bg-secondary"
-              }`}
             >
               All
-            </button>
+            </Button>
             {shownCategories.map((cat) => (
-              <button
+              <Button
                 key={cat.name}
+                type="button"
+                size="sm"
+                variant={category === cat.name ? "default" : "outline"}
                 onClick={() => setCategory(category === cat.name ? null : cat.name)}
-                className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
-                  category === cat.name
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-foreground/75 hover:bg-secondary"
-                }`}
               >
                 {cat.name} <span className="opacity-60">{cat.count}</span>
-              </button>
+              </Button>
             ))}
           </div>
         </div>
