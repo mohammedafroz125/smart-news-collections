@@ -30,3 +30,6 @@ notebook pages in the PDF belong to a different project and were ignored.
 - [ ] Verify the first scheduled collection + ML pass on the published URL
       (collect-news 3x daily + process-news every 15 min are active and pointed
       at the stable routes; next IST evening run is 17:30).
+- [ ] Keep category filters available and show every category on the news page.
+- [ ] Lock admin sign-in to email/password for mohammedafroz125@gmail.com; keep
+      that email fixed in settings and require an email OTP before changing the password.
