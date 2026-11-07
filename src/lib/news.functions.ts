@@ -3,6 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { createPublicClient } from "./supabase-public.server";
 import { collectAllSources, processPendingArticles } from "./collect.server";
+import { ADMIN_EMAIL, isAdminEmail } from "./admin-identity";
 
 export interface NewsArticleDTO {
   id: string;
@@ -155,7 +156,14 @@ export const getArticle = createServerFn({ method: "GET" })
     return { article, related: ((relatedRows ?? []) as unknown as RawArticle[]).map(toDto) };
   });
 
-async function assertAdmin(context: { supabase: import("@supabase/supabase-js").SupabaseClient; userId: string }) {
+async function assertAdmin(context: {
+  supabase: import("@supabase/supabase-js").SupabaseClient;
+  userId: string;
+  claims: Record<string, unknown>;
+}) {
+  if (!isAdminEmail(typeof context.claims.email === "string" ? context.claims.email : null)) {
+    throw new Error("Forbidden — admin access required");
+  }
   const { data } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
   if (!data) throw new Error("Forbidden — admin access required");
 }

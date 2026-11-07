@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ADMIN_EMAIL } from "@/lib/admin-identity";
+import { ADMIN_EMAIL, isAdminEmail } from "@/lib/admin-identity";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -31,7 +31,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/admin", replace: true });
+      if (isAdminEmail(data.user?.email)) navigate({ to: "/admin", replace: true });
     });
   }, [navigate]);
 

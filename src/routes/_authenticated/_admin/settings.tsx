@@ -179,8 +179,9 @@ function SettingsPage() {
           </div>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="admin-password-display">Password</Label>
-            <Input id="admin-password-display" type="password" value="password-is-not-readable" readOnly />
-            <p className="text-xs text-muted-foreground">For your security, the current password cannot be displayed.</p>
+            <p id="admin-password-display" className="text-sm text-muted-foreground">
+              Hidden for security. Use the verification steps below to set a new password.
+            </p>
           </div>
         </section>
         <PasswordChange />
